@@ -94,3 +94,8 @@ for _, row in output_df.iterrows():
 supabase.table("phones").insert(rows_to_insert).execute()
 
 print(f"Inserted {len(rows_to_insert)} rows into Supabase")
+
+# Alert 1: Average price dropped below threshold
+avg_price = df["price_eur"].mean()
+if avg_price < 320.0:
+    print(f"⚠️ ALERT: Average price (£{avg_price:.2f}) dropped below £320!")
