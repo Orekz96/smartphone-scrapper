@@ -4,6 +4,9 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from datetime import datetime
 from supabase import create_client
+from datetime import datetime
+
+
 
 # =========================
 # SUPABASE CONFIG (ENV VARS)
@@ -23,7 +26,8 @@ response.encoding = "utf-8"
 soup = BeautifulSoup(response.text, "html.parser")
 
 rows = []
-scrape_time = datetime.now().isoformat()
+# scrape_time = datetime.now().isoformat()
+scrape_time = datetime.utcnow().isoformat()
 
 for item in soup.select(".item-cell"):
     title_tag = item.select_one(".item-title")
@@ -79,7 +83,7 @@ else:
 # LOAD TO SUPABASE
 # =========================
 # Clear table first
-supabase.table("phones").delete().neq("title", "placeholder").execute()
+# supabase.table("phones").delete().neq("title", "placeholder").execute()
 
 rows_to_insert = []
 
